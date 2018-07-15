@@ -8,7 +8,7 @@ module AuthenticationHelper
   end
 
   def fail_auth!
-    error!('Incorrect email or password', 401)
+    error!('Incorrect username or password', 401)
   end
 
   def current_user

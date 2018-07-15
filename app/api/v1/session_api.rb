@@ -3,6 +3,8 @@
 class V1::SessionAPI < Grape::API
   version 'v1', using: :path
 
+  helpers AuthenticationHelper
+
   resource :session do
     desc 'This API is used to create user sessions(sign in/out)'
 
@@ -14,10 +16,9 @@ class V1::SessionAPI < Grape::API
     post do
       user = User.find_by(username: params[:username])
       if user&.authenticate(params[:password])
-        auth_token = ::JsonWebToken.encode(user_id: user.id)
-        return auth_token
+        { token: JsonWebToken.encode(user_id: user.id) }
       else
-        return 'unathorized'
+        fail_auth!
       end
     end
   end

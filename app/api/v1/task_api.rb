@@ -15,7 +15,7 @@ class V1::TaskAPI < Grape::API
     end
 
     get do
-      render current_user
+      current_user
     end
   end
 end

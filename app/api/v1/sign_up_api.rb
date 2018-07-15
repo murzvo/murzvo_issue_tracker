@@ -16,8 +16,11 @@ class V1::SignUpAPI < Grape::API
 
     post do
       user = User.new(params[:user])
-      user.save
-      user
+      if user.save
+        user.as_json(only: %i[id username])
+      else
+        error! user.errors, 402
+      end
     end
   end
 end

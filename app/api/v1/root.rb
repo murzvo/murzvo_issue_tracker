@@ -3,8 +3,9 @@
 class V1::Root < Grape::API
   version 'v1', using: :path, cascade: true
 
-  # formatter       :json, SuccesResponseFormatter
-  # error_formatter :json, ErrorResponseFormatter
+  error_formatter :json, V1::Helpers::ErrorResponseFormatter
+
+  use V1::Helpers::ApiErrorsHandler
 
   mount V1::SignUpAPI
   mount V1::SessionAPI
