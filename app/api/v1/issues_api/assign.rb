@@ -25,7 +25,7 @@ class V1::IssuesAPI::Assign < Grape::API
       issue = Issue.find(params[:id])
       error!('Issue is already assigned to this user', 402) if issue.assignee_id == params[:assignee_id]
       error!('Issue can not be assigned to this user', 402) unless policy.assign?(issue, params[:assignee_id])
-      issue.update(assignee_id: current_user.id)
+      issue.update(assignee_id: params[:assignee_id])
       issue
     end
   end

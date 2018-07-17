@@ -7,8 +7,12 @@ class IssuesPolicy
     @user = user
   end
 
-  def edit_issue?(issue)
+  def modify?(issue)
     issue.creator_id == @user.id || issue.assignee_id == @user.id
+  end
+
+  def delete?(issue)
+    issue.creator_id == @user.id
   end
 
   def show?(issue)
@@ -25,5 +29,9 @@ class IssuesPolicy
 
   def unassign?(issue)
     @user.manager? && issue.assigned? && @user.id == issue.assignee_id
+  end
+
+  def change_status?(issue)
+    @user.id == issue.assignee_id && @user.manager?
   end
 end

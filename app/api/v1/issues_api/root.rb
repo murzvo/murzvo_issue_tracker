@@ -10,6 +10,7 @@ class V1::IssuesAPI::Root < Grape::API
   mount V1::IssuesAPI::Show
   mount V1::IssuesAPI::Create
   mount V1::IssuesAPI::Modify
+  mount V1::IssuesAPI::Delete
   mount V1::IssuesAPI::Assign
   mount V1::IssuesAPI::Unassign
 end
