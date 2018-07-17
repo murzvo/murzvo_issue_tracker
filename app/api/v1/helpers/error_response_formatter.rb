@@ -3,8 +3,8 @@
 module V1::Helpers::ErrorResponseFormatter
   class << self
     def call(object, *_opts)
-      errors_hash = object.is_a?(ActiveModel::Errors) ? object.full_messages : convert_to_errors(object)
-      errors_hash.to_json
+      errors = object.is_a?(ActiveModel::Errors) ? object.full_messages : object
+      convert_to_errors(errors).to_json
     end
 
     private

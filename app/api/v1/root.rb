@@ -9,5 +9,5 @@ class V1::Root < Grape::API
 
   mount V1::SignUpAPI
   mount V1::SessionAPI
-  mount V1::TaskAPI
+  mount V1::IssuesAPI::Root
 end

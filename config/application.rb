@@ -18,6 +18,7 @@ module StudytubeIssueTracker
 
     config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
+    config.autoload_paths += Dir[Rails.root.join('app', 'policies', '*')]
 
     config.autoload_paths << "#{Rails.root}/lib"
     # Settings in config/environments/* take precedence over those specified here.

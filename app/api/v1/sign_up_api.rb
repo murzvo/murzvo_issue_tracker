@@ -11,6 +11,7 @@ class V1::SignUpAPI < Grape::API
         requires 'username', type: String, desc: 'user system username'
         requires 'password', type: String, desc: 'user password'
         requires 'password_confirmation', type: String, desc: 'user password'
+        requires 'role', type: String, desc: 'user role'
       end
     end
 
