@@ -8,6 +8,7 @@ class Issue < ApplicationRecord
 
   validates_presence_of :name
 
+  scope :status, ->(status) { where status: status }
   scope :user_issues, lambda { |user|
     if user.regular?
       includes(:creator, :assignee)
