@@ -9,8 +9,9 @@ class V1::IssuesAPI::Index < Grape::API
       }
     end
 
+    paginate per_page: 25, max_per_page: 25
     get do
-      Issue.user_issues(current_user)
+      paginate Issue.user_issues(current_user)
     end
   end
 end

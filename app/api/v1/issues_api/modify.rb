@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class V1::IssuesAPI::Modify < Grape::API
+  ASSIGN_REQUIRED_STATUSES = %w[in_progress resolved].freeze
+
   helpers PolicyHelper
 
   helpers do
