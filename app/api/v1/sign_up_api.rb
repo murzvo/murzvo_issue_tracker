@@ -1,24 +1,27 @@
 # frozen_string_literal: true
 
 class V1::SignUpAPI < Grape::API
-  version 'v1', using: :path
-
   namespace :sign_up do
-    desc 'User sign up'
+    desc 'Creates user with specific role' do
+      detail 'Service that creates new user.
+              Role field added to be able to create users with specific role
+              since there is no roles management for users.'
+    end
 
     params do
-      group :user, type: Hash do
-        requires 'username', type: String, desc: 'user system username'
-        requires 'password', type: String, desc: 'user password'
-        requires 'password_confirmation', type: String, desc: 'user password'
-        requires 'role', type: String, desc: 'user role'
-      end
+      requires :username, type: String
+      requires :password, type: String
+      requires :password_confirmation, type: String
+      requires :role,
+               type: String,
+               values: %w[regular manager],
+               desc: 'User role. Role should be one of the following [regular manager]'
     end
 
     post do
-      user = User.new(params[:user])
+      user = User.new(params)
       if user.save
-        user.as_json(only: %i[id username])
+        user
       else
         error! user.errors, 402
       end

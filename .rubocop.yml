@@ -19,3 +19,6 @@ Style/StringLiterals:
 
 Style/ClassAndModuleChildren:
   Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false

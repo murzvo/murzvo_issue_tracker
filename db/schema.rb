@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(version: 2018_07_15_112630) do
     t.string "name"
     t.string "description"
     t.integer "status", default: 0
-    t.integer "creator_id", default: 0
-    t.integer "assignee_id", default: 0
+    t.integer "creator_id"
+    t.integer "assignee_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["assignee_id"], name: "index_issues_on_assignee_id"

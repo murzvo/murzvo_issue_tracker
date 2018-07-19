@@ -3,6 +3,7 @@
 class ApplicationApi < Grape::API
   format :json
   formatter :json, Grape::Formatter::ActiveModelSerializers
+  prefix "api"
 
   mount V1::Root
 

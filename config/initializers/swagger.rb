@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-GrapeSwaggerRails.options.url      = '/docs.json'
+GrapeSwaggerRails.options.url      = '/api/docs.json'
 GrapeSwaggerRails.options.app_url  = 'http://localhost:3000'
 GrapeSwaggerRails.options.app_name = 'Studytube Issue Tracker API'
 GrapeSwaggerRails.options.doc_expansion = 'list'

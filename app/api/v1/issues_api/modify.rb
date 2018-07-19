@@ -10,38 +10,44 @@ class V1::IssuesAPI::Modify < Grape::API
       IssuesPolicy
     end
 
-    def status_change?
-      issue.status != params[:status]
+    def status_change?(issue)
+      params[:status] && issue.status != params[:status]
     end
 
-    def issue
-      Issue.find(params[:id])
+    def validate!(issue)
+      forbidden! unless policy.modify?(issue)
+      error!('You can not change status of this issue', 402) if status_change?(issue) && !policy.change_status?(issue)
     end
   end
 
   resource :issues do
-    desc 'API with actions with issues' do
+    desc 'Service to modify the issue' do
       headers Authorization: {
-        description: 'Validates your identity',
+        description: 'User auth token',
         required: true
       }
     end
 
     params do
-      optional 'name',        type: String, desc: ''
-      optional 'description', type: String, desc: ''
-      optional 'status',      type: String, values: %w[pending in_progress resolved], desc: ''
+      optional :name,        type: String
+      optional :description, type: String
+      optional :status,
+               type: String,
+               values: %w[pending in_progress resolved],
+               desc: 'Issue status. Should be one of following [pending in_progress resolved]'
     end
 
     put ':id', requirements: { id: /[0-9]+/ } do
-      forbidden! unless policy.modify?(issue)
-      error!('You can not change status of your issue', 402) unless policy.change_status?(issue)
-      issue.update(
-        name: params[:name],
-        description: params[:description],
-        status: params[:status]
-      )
-      issue.as_json(only: %i[id name description status assignee_id creator_id created_at])
+      issue = Issue.find(params[:id])
+      validate!(issue)
+      issue.name = params[:name] if params[:name].present?
+      issue.description = params[:description] if params[:description].present?
+      issue.status = params[:status] if params[:status].present?
+      if issue.save
+        issue
+      else
+        error! issue.errors, 402
+      end
     end
   end
 end

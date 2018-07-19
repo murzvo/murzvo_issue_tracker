@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 class V1::SessionAPI < Grape::API
-  version 'v1', using: :path
+  desc 'Service to authenticate user' do
+    detail 'When authenticate is successful user token will be returned'
+  end
 
   helpers AuthenticationHelper
 
   resource :session do
-    desc 'This API is used to create user sessions(sign in/out)'
-
     params do
-      requires 'username', type: String, desc: 'user system username'
-      requires 'password', type: String, desc: 'user password'
+      requires :username, type: String
+      requires :password, type: String
     end
 
     post do
