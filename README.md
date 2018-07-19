@@ -1,24 +1,11 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Studytube Issue Tracker API for task https://gist.github.com/kostyadubinin/fc72f88173a1f81bf6d39207dd34a365
 
-Things you may want to cover:
+To setup the application on your local use the following steps:
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+git clone git@github.com:murzvo/murzvo_issue_tracker.git
+cd app
+./bin/setup
+```
